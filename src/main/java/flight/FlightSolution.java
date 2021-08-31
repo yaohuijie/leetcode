@@ -42,7 +42,7 @@ public class FlightSolution {
     for (int[] booking : bookings) {
       answer[booking[0] - 1] += booking[2];
       if (booking[1] < n) {
-        answer[1] -= booking[2];
+        answer[booking[1]] -= booking[2];
       }
     }
     for (int i = 1; i < n; i++) {
