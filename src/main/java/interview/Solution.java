@@ -4,8 +4,6 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.Random;
-import java.util.Spliterator.OfInt;
-import java.util.jar.JarEntry;
 
 /**
  * 面试题  17.14.  最小k个数
@@ -26,9 +24,7 @@ public class Solution {
   public int[] smallestK(int[] arr, int k) {
     int[] small = new int[k];
     Arrays.sort(arr);
-    if (small.length >= 0) {
-      System.arraycopy(arr, 0, small, 0, small.length);
-    }
+    System.arraycopy(arr, 0, small, 0, small.length);
     return small;
   }
 
@@ -50,13 +46,15 @@ public class Solution {
       queue.offer(arr[i]);
     }
     for (int i = k; i < arr.length; i++) {
-      if (queue.peek() > arr[i]) {
+      Integer peek = queue.peek();
+      if (peek != null && peek > arr[i]) {
         queue.poll();
         queue.offer(arr[i]);
       }
     }
     for (int i = 0; i < k; i++) {
-      small[i] = queue.poll();
+      Integer num = queue.poll();
+      small[i] = num == null ? 0 : num;
     }
     return small;
   }
@@ -71,9 +69,7 @@ public class Solution {
   public int[] smallestK2(int[] arr, int k) {
     int[] small = new int[k];
     randomizedSelected(arr, 0, arr.length - 1, k);
-    if (k >= 0) {
-      System.arraycopy(arr, 0, small, 0, k);
-    }
+    System.arraycopy(arr, 0, small, 0, k);
     return small;
   }
 
