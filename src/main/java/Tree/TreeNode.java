@@ -1,4 +1,4 @@
-package Tree;
+package tree;
 
 /**
  * @author Ghost_Yao
