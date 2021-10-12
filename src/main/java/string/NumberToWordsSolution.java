@@ -19,6 +19,17 @@ public class NumberToWordsSolution {
       "Ninety"};
   String[] thousands = {"", "Thousand", "Million", "Billion"};
 
+  private final int ZERO = 0;
+  private final int TEN = 10;
+  private final int HUNDRED = 100;
+  private final int THOUSAND = 1000;
+  private final int BILLION = 1_000_000_000;
+
+  public static void main(String[] args) {
+    NumberToWordsSolution solution = new NumberToWordsSolution();
+    System.out.println(solution.numberToWords(5803256));
+    System.out.println(solution.numberToWords2(5803256));
+  }
 
   /**
    * 递归
@@ -28,10 +39,11 @@ public class NumberToWordsSolution {
       return "Zero";
     }
     StringBuilder sb = new StringBuilder();
-    for (int i = 3, uint = 1000000000; i >= 0; i--, uint /= 1000) {
-      int curNum = num / uint;
-      if (curNum != 0) {
-        num -= curNum * uint;
+    int unit = BILLION;
+    for (int i = 3; i >= ZERO; i--, unit /= THOUSAND) {
+      int curNum = num / unit;
+      if (curNum != ZERO) {
+        num -= curNum * unit;
         StringBuffer curr = new StringBuffer();
         recursion(curr, curNum);
         curr.append(thousands[i]).append(" ");
@@ -42,17 +54,18 @@ public class NumberToWordsSolution {
   }
 
   public void recursion(StringBuffer curr, int num) {
-    if (num != 0) {
-      if (num < 10) {
+    if (num != ZERO) {
+      int TWENTY = 20;
+      if (num < TEN) {
         curr.append(singles[num]).append(" ");
-      } else if (num < 20) {
-        curr.append(teens[num - 10]).append(" ");
-      } else if (num < 100) {
-        curr.append(tens[num / 10]).append(" ");
-        recursion(curr, num % 10);
+      } else if (num < TWENTY) {
+        curr.append(teens[num - TEN]).append(" ");
+      } else if (num < HUNDRED) {
+        curr.append(tens[num / TEN]).append(" ");
+        recursion(curr, num % TEN);
       } else {
-        curr.append(singles[num / 100]).append(" Hundred ");
-        recursion(curr, num % 100);
+        curr.append(singles[num / HUNDRED]).append(" Hundred ");
+        recursion(curr, num % HUNDRED);
       }
     }
   }
@@ -61,14 +74,14 @@ public class NumberToWordsSolution {
    * 迭代
    */
   public String numberToWords2(int num) {
-    if (num == 0) {
+    if (num == ZERO) {
       return "Zero";
     }
     StringBuilder sb = new StringBuilder();
-    for (int i = 3, uint = 1000000000; i >= 0; i--, uint /= 1000) {
-      int curNum = num / uint;
-      if (curNum != 0) {
-        num -= curNum * uint;
+    for (int i = 3, unit = BILLION; i >= ZERO; i--, unit /= THOUSAND) {
+      int curNum = num / unit;
+      if (curNum != ZERO) {
+        num -= curNum * unit;
         sb.append(toEnglish(curNum)).append(thousands[i]).append(" ");
       }
     }
@@ -77,21 +90,21 @@ public class NumberToWordsSolution {
 
   public String toEnglish(int num) {
     StringBuilder curr = new StringBuilder();
-    int hundred = num / 100;
-    num %= 100;
-    if (hundred != 0) {
+    int hundred = num / HUNDRED;
+    num %= HUNDRED;
+    if (hundred != ZERO) {
       curr.append(singles[hundred]).append(" Hundred ");
     }
-    int ten = num / 10;
+    int ten = num / TEN;
     if (ten > 1) {
       curr.append(tens[ten]).append(" ");
-      num %= 10;
+      num %= TEN;
     }
     //考虑 0 的情况。否则会多空格
-    if (num > 0 && num < 10) {
+    if (num > ZERO && num < TEN) {
       curr.append(singles[num]).append(" ");
-    } else if (num >= 10) {
-      curr.append(teens[num - 10]).append(" ");
+    } else if (num >= TEN) {
+      curr.append(teens[num - TEN]).append(" ");
     }
     return curr.toString();
   }
