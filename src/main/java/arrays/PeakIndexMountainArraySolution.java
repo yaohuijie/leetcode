@@ -21,20 +21,42 @@ public class PeakIndexMountainArraySolution {
 
   public static void main(String[] args) {
     PeakIndexMountainArraySolution solution = new PeakIndexMountainArraySolution();
-    int[] arr = new int[]{0, 10, 5, 2};
+    int[] arr = new int[]{0, 1, 10, 5, 2};
     System.out.println(solution.peakIndexInMountainArray(arr));
+    System.out.println(solution.peakIndexInMountainArray1(arr));
   }
 
+  /**
+   * 遍历
+   */
   public int peakIndexInMountainArray(int[] arr) {
     int m = arr[0];
     for (int i = 1; i < arr.length; i++) {
       if (m > arr[i]) {
-        return i;
+        return i - 1;
       } else {
         m = arr[i];
       }
     }
     return -1;
+  }
+
+  /**
+   * 二分法
+   */
+  public int peakIndexInMountainArray1(int[] arr) {
+    int len = arr.length;
+    int left = 0, right = len - 1, ans = 0;
+    while (left <= right) {
+      int mid = (left + right) / 2;
+      if (arr[mid] > arr[mid + 1]) {
+        ans = mid;
+        right = mid - 1;
+      } else {
+        left = mid + 1;
+      }
+    }
+    return ans;
   }
 
 }
