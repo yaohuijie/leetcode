@@ -47,6 +47,9 @@ public class ReorderedPowerOfSolution {
     return new String(arr);
   }
 
+  /****************************************
+   *                                      *
+   *****************************************/
   public boolean reorderedPowerOf2(int n) {
     char[] arr = Integer.toString(n).toCharArray();
     Arrays.sort(arr);
