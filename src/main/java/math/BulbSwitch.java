@@ -22,10 +22,37 @@ public class BulbSwitch {
   public static void main(String[] args) {
     BulbSwitch solution = new BulbSwitch();
     System.out.println(solution.bulbSwitch(5));
+    System.out.println(solution.bulbSwitch1(5));
   }
 
   public int bulbSwitch(int n) {
     return (int) Math.sqrt(n + 0.5);
+  }
+
+  /**
+   * 正常流程 （超时）
+   */
+  public int bulbSwitch1(int n) {
+    //n小于等于1的情况
+    if (n <= 1) {
+      return n;
+    }
+    boolean[] light = new boolean[n];
+    //从第 2 轮到 第 n 轮
+    for (int i = 2; i <= n; i++) {
+      //每隔 i 个灯泡切换开关
+      for (int j = i - 1; j < n; j += i) {
+        light[j] = !light[j];
+      }
+    }
+    //统计灯泡开着的数量
+    int res = 0;
+    for (boolean b : light) {
+      if (!b) {
+        res++;
+      }
+    }
+    return res;
   }
 
 }
