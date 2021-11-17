@@ -32,7 +32,7 @@ public class IsRectangleCover {
   public boolean isRectangleCover(int[][] rectangles) {
     long area = 0;
     int minX = rectangles[0][0], minY = rectangles[0][1], maxX = rectangles[0][2], maxY = rectangles[0][3];
-    Map<Point, Integer> cnt = new HashMap<>();
+    Map<Point, Integer> cnt = new HashMap<>(rectangles.length * 4);
     for (int[] rect : rectangles) {
       int x = rect[0], y = rect[1], a = rect[2], b = rect[3];
       area += (long) (a - x) * (b - y);
