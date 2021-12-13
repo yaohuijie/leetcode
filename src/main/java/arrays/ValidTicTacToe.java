@@ -50,10 +50,7 @@ public class ValidTicTacToe {
     if (win(board, charX) && o != x - 1) {
       return false;
     }
-    if (win(board, charO) && o != x) {
-      return false;
-    }
-    return true;
+    return !win(board, charO) || o == x;
   }
 
   private boolean win(String[] board, char p) {
@@ -68,9 +65,6 @@ public class ValidTicTacToe {
     if (p == board[0].charAt(0) && p == board[1].charAt(1) && p == board[2].charAt(2)) {
       return true;
     }
-    if (p == board[0].charAt(2) && p == board[1].charAt(1) && p == board[2].charAt(0)) {
-      return true;
-    }
-    return false;
+    return p == board[0].charAt(2) && p == board[1].charAt(1) && p == board[2].charAt(0);
   }
 }
