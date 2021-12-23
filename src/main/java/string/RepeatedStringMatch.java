@@ -86,7 +86,7 @@ public class RepeatedStringMatch {
    */
   public int repeatedStringMatch(String a, String b) {
     int an = a.length(), bn = b.length();
-    int index = strStr(a, b);
+    int index = knuthMorrisPratt(a, b);
     if (index == -1) {
       return -1;
     }
@@ -96,7 +96,7 @@ public class RepeatedStringMatch {
     return (bn + index - an - 1) / an + 2;
   }
 
-  private int strStr(String a, String b) {
+  private int knuthMorrisPratt(String a, String b) {
     int n = a.length(), m = b.length();
     if (m == 0) {
       return -1;
