@@ -40,7 +40,7 @@ public class IsNStraightHand {
       return false;
     }
     Arrays.sort(hand);
-    Map<Integer, Integer> cnt = new HashMap<>();
+    Map<Integer, Integer> cnt = new HashMap<>(len / groupSize);
     for (int x : hand) {
       cnt.put(x, cnt.getOrDefault(x, 0) + 1);
     }
