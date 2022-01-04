@@ -20,6 +20,7 @@ public class CheckPerfectNumber {
   public static void main(String[] args) {
     CheckPerfectNumber solution = new CheckPerfectNumber();
     System.out.println(solution.checkPerfectNumber(28));
+    System.out.println(solution.checkPerfectNumber1(28));
   }
 
   public boolean checkPerfectNumber(int num) {
